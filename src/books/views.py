@@ -1,17 +1,13 @@
 from django.shortcuts import render
-import json
 
-bookData = open("C:/Users/chen/Desktop/DjangoExcercise/Django-Bookstore/books.json").read()
-data = json.loads(bookData)
+from books.models import Book
 
 def index(request):
+    data = Book.objects.all()
     context = {'books': data}
     return render(request, "books/index.html", context)
 
 def show(request, id):
-    singleBook = []
-    for book in data:
-        if book['id'] == id:
-            singleBook = book
+    singleBook = Book.objects.get(pk=id)
     context = {'book': singleBook}
     return render(request, "books/show.html", context)
