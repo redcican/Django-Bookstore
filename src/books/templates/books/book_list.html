@@ -1,0 +1,27 @@
+{% extends 'books/base.html' %} 
+
+{% block title %} 
+Bookstore - All Books 
+{% endblock title %} 
+
+
+{% block content %}
+<div>
+<h1 class="text-center text-4xl">This is a Django Bookstore</h1>
+
+<div class="grid grid-cols-4 gap-4 mt-10">
+  {% for book in book_list %}
+  <a
+    href="{% url 'book-show' book.id %}"
+    class="justify-self-center text-center my-4"
+    target="_blank"
+  >
+    <div class="flex justify-center">
+      <img src="{{book.thumbnailUrl}}" width="200" alt="{{ book.title}}" />
+    </div>
+    <p class="text-lg text-gray-700">{{ book.title }}</p>
+  </a>
+  {% endfor %}
+</div>
+</div>
+{% endblock content %}

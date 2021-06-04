@@ -1,0 +1,66 @@
+{% extends "books/base.html" %} 
+
+{% block title %}
+Bookstore - {{book.title}}
+{% endblock title %}
+
+{% block content %}
+<div class="w-10/12">
+  <div class="flex justify-between mt-10">
+    <div class="flex justify-between">
+      <div class="w-3/12">
+        <img src="{{book.thumbnailUrl}}" width="200" />
+      </div>
+      <div class="w-9/12">
+        <p class="text-3xl">About</p>
+        <p class="text-gray-600 mt-5">{{book.shortDescription}}</p>
+
+        <div class="mt-10">
+          <p class="text-3xl">Pages</p>
+          <p class="text-gray-600 mt-5">Total {{book.pageCount}} pages</p>
+        </div>
+
+        <div class="mt-10">
+          <p class="text-3xl">Author</p>
+          <div class="text-gray-600 mt-5">
+            {% for author in authors %}
+              <a href="{% url 'author-books' author %}">{{ author }}</a>,
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <p class="text-3xl">Description</p>
+          <p class="text-gray-600 mt-4">{{book.longDescription}}</p>
+        </div>
+        
+        <div class="mt-10">
+          <form method="POST" action="{% url 'book-review' book.id %}">
+            {% csrf_token %}
+            <textarea
+              class="border rounded p-2 w-full"
+              name="review"
+              placeholder="Write your review here"
+              rows="5"
+            ></textarea>
+            <button
+              type="submit"
+              class="float-right border rounded p-2 bg-gray-800 text-white"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <div class="mt-10">
+          <p class="text-3xl">Comments</p>
+          {% for review in reviews %}
+          <p class="text-gray-600 mt-5">{{review.body}}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
