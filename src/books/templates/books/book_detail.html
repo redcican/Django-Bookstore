@@ -1,4 +1,4 @@
-{% extends "books/base.html" %} 
+{% extends "base.html" %} 
 
 {% block title %}
 Bookstore - {{book.title}}
@@ -24,7 +24,7 @@ Bookstore - {{book.title}}
           <p class="text-3xl">Author</p>
           <div class="text-gray-600 mt-5">
             {% for author in authors %}
-              <a href="{% url 'author-books' author %}">{{ author }}</a>,
+              <a href="{% url 'author-books' author %}" class="hover:text-blue-700">{{ author }}</a>,
             {% endfor %}
           </div>
         </div>
@@ -33,7 +33,7 @@ Bookstore - {{book.title}}
           <p class="text-3xl">Description</p>
           <p class="text-gray-600 mt-4">{{book.longDescription}}</p>
         </div>
-        
+
         <div class="mt-10">
           <form method="POST" action="{% url 'book-review' book.id %}">
             {% csrf_token %}

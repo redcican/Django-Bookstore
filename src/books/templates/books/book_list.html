@@ -1,4 +1,4 @@
-{% extends 'books/base.html' %} 
+{% extends 'base.html' %} 
 
 {% block title %} 
 Bookstore - All Books 
@@ -13,7 +13,7 @@ Bookstore - All Books
   {% for book in book_list %}
   <a
     href="{% url 'book-show' book.id %}"
-    class="justify-self-center text-center my-4"
+    class="justify-self-center text-center my-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
     target="_blank"
   >
     <div class="flex justify-center">
