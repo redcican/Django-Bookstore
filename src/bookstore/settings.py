@@ -135,10 +135,7 @@ LOGIN_URL  = '/login'
 LOGOUT_REDIRECT_URL = '/login'
 
 # MAILTRAP SETTINGS
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '28d327dd598568'
-EMAIL_HOST_PASSWORD = '866643cb5f95d7'
-EMAIL_PORT = '2525'
+
 
 
 # Default primary key field type
