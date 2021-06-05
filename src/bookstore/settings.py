@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # books app
     'books',
+    'crispy_forms',
+    "crispy_tailwind",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bookstore.urls'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
+
 
 TEMPLATES = [
     {
@@ -120,6 +126,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = 'media'
+MEDIA_URL = 'media/'
+
+LOGIN_REDIRECT_URL  = '/book'
+LOGIN_URL  = '/login'
+LOGOUT_REDIRECT_URL = '/login'
+
+# MAILTRAP SETTINGS
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '28d327dd598568'
+EMAIL_HOST_PASSWORD = '866643cb5f95d7'
+EMAIL_PORT = '2525'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,7 +1,9 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
+from books.form import ReviewForm
 from books.models import Book, Review
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.storage import FileSystemStorage
 
 class BookListView(ListView):
     # template_name = 'books/index.html' -> if not defined, 'book_list.html' is defautl used
@@ -26,6 +28,7 @@ class BookDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['reviews'] = context['book'].review_set.order_by('-created_at') # one to many
         context['authors'] = context['book'].authors.all() # many to many
+        context['form'] = ReviewForm()
         return context
 
 # def show(request, id):
@@ -41,7 +44,20 @@ def author(request, author):
 
 
 def review(request, id):
-    body = request.POST['review']
-    newReview = Review(body=body, book_id=id)
-    newReview.save()
-    return redirect("/book")
+    if request.user.is_authenticated:
+        newReview = Review(review=review, book_id=id, user=request.user)
+        form = ReviewForm(request.POST,request.FILES, instance=newReview)
+        if form.is_valid():
+            form.save()
+        # else:
+        #     print("something went wrong")
+        # review = request.POST['review']
+        # newReview = Review(review=review, book_id=id, user=request.user)
+
+        # if len(request.FILES) != 0:
+        #     image = request.FILES['image']
+        #     fs = FileSystemStorage()
+        #     image_name = fs.save(image.name, image)        
+        #     image = fs.url(image_name)
+        # newReview.save()
+    return redirect(f'/book/{id}')

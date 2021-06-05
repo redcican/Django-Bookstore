@@ -1,38 +1,30 @@
 {% extends "base.html" %}
 
+{% comment %} {% block nav_title %}
+    Login
+{% endblock nav_title %} {% endcomment %}
+
 {% block content %}
+<div class="w-full max-w-xs">
+<div class="w-full bg-white rounded shadow-lg p-8 m-4 md:max-w-sm md:mx-auto">
+    <span class="block w-full text-xl uppercase font-bold mb-4">Login</span>    
+        <form class="mb-4" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-4 md:w-full">
+            <div class="block text-xs mb-1">{{ form.username.label_tag }}</div>
+            <div class="w-full border rounded p-2 outline-none focus:shadow-outline">{{form.username}}</div>
+        </div>
+        <div class="mb-6 md:w-full">
+            <div class="block text-xs mb-1">{{ form.password.label_tag }}</div>
+            <div class="w-full border rounded p-2 outline-none focus:shadow-outline">{{form.password}}</div>
+        </div>
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login">
-<input type="hidden" name="next" value="{{ next }}">
-</form>
+        <input type="submit" value="login" class="py-1 px-2 mt-5 bg-green-300 text-white rounded w-full cursor-pointer hover:bg-green-800">
+        <input type="hidden" name="next" value="{{ next }}">
+        </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<p class="text-blue-700 text-center text-sm" ><a href="{% url 'password_reset' %}">Lost password?</a></p>
+</div> 
 
 {% endblock %}
